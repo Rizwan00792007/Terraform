@@ -1,0 +1,148 @@
+# resource "aws_instance" "vm-2" {
+#   ami           = "ami-069e612f612be3a2b" 
+#   key_name = "redhat"
+# # !! we can use security_groups = ["sg-group name"]  if we want to use name !!
+#   vpc_security_group_ids = [ aws_security_group.ec2_sg.id ]
+#   instance_type = "t2.medium"
+
+#   root_block_device {
+#     volume_size = 15
+#     volume_type = "gp3"
+#     delete_on_termination = true
+#     encrypted = true
+#     tags = {
+#       Name        = "prometheus-root-volume2"
+#       Environment = "dev"
+#       Owner       = "rizwan"
+#     }
+#   }
+
+#   tags = { Name = "target-server-1" }
+# }
+
+# resource "null_resource" "null-2" {
+
+#   depends_on = [aws_instance.vm-2]
+
+#   connection {
+#       type = "ssh"
+#       user = "ec2-user"
+#       private_key = file("C:/Users/khanr/Downloads/redhat.pem")
+#       host = aws_instance.vm-2.public_ip
+#       port = 22
+#   }
+
+#   provisioner "remote-exec" {
+#     inline = [
+#       # !! installing packages !!
+#        "sudo yum install -y wget",
+#        "sudo hostnamectl set-hostname prometheus-target1",
+#        "sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz",
+#        "sudo tar -zxvf node_exporter-1.10.2.linux-amd64.tar.gz",
+#        "sudo cd node_exporter-1.10.2.linux-amd64",
+#        "sudo /home/ec2-user/node_exporter-1.10.2.linux-amd64/node_exporter &"     
+#    ]
+    
+#   }
+# }
+
+
+# resource "aws_instance" "vm-3" {
+#   ami           = "ami-069e612f612be3a2b" 
+#   key_name = "redhat"
+#   vpc_security_group_ids = [ aws_security_group.ec2_sg.id ]
+#   instance_type = "t2.medium"
+
+#   root_block_device {
+#     volume_size = 15
+#     volume_type = "gp3"
+#     delete_on_termination = true
+#     encrypted = true
+#     tags = {
+#       Name        = "prometheus-root-volume3"
+#       Environment = "dev"
+#       Owner       = "rizwan"
+#     }
+#   }
+
+#   tags = { Name = "target-server-2" }
+# }
+
+# resource "null_resource" "null-3" {
+
+#   depends_on = [aws_instance.vm-3]
+
+#   connection {
+#       type = "ssh"
+#       user = "ec2-user"
+#       private_key = file("C:/Users/khanr/Downloads/redhat.pem")
+#       host = aws_instance.vm-3.public_ip
+#       port = 22
+#   }
+
+#   provisioner "remote-exec" {
+#     inline = [
+#       # !! installing packages !!
+#        "sudo yum install -y wget",
+#        "sudo hostnamectl set-hostname prometheus-target2",
+#        "sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz",
+#        "sudo tar -zxvf node_exporter-1.10.2.linux-amd64.tar.gz",
+#        "sudo cd node_exporter-1.10.2.linux-amd64",
+#        "sudo /home/ec2-user/node_exporter-1.10.2.linux-amd64/node_exporter &"     
+#    ]
+    
+#   }
+# }
+
+
+
+# resource "aws_instance" "vm-4" {
+#   ami           = "ami-069e612f612be3a2b" 
+#   key_name = "redhat"
+# # !! we can use security_groups = ["sg-group name"]  if we want to use name !!
+#   vpc_security_group_ids = [ aws_security_group.ec2_sg.id ]
+#   instance_type = "t2.medium"
+
+#   root_block_device {
+#     volume_size = 15
+#     volume_type = "gp3"
+#     delete_on_termination = true
+#     encrypted = true
+#     tags = {
+#       Name        = "prometheus-root-volume3"
+#       Environment = "dev"
+#       Owner       = "rizwan"
+#     }
+#   }
+
+#   tags = { Name = "docker-target" }
+# }
+
+# resource "null_resource" "null-6" {
+
+#   depends_on = [aws_instance.vm-4]
+
+#   connection {
+#       type = "ssh"
+#       user = "ec2-user"
+#       private_key = file("C:/Users/khanr/Downloads/redhat.pem")
+#       host = aws_instance.vm-4.public_ip
+#       port = 22
+#   }
+
+#   provisioner "remote-exec" {
+#     inline = [
+#       # !! installing packages !!
+#        "sudo yum install -y wget",
+#        "sudo hostnamectl set-hostname docker-target",
+#        "sudo dnf remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman runc",
+#        "sudo dnf -y install dnf-plugins-core",
+#        "sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo",
+#        "sudo dnf install -y  docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin",
+#        "sudp systemctl daemon-reload",
+#        "sudo systemctl enable docker",
+#        "sudo systemctl start docker"     
+#    ]
+    
+#   }
+# }
