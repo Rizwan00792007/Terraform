@@ -1,0 +1,24 @@
+resource "null_resource" "null-1" {
+  for_each = aws_instance.vm
+  depends_on = [aws_instance.vm]
+
+  connection {
+      type = "ssh"
+      user = "ec2-user"
+      private_key = file("C:/Users/khanr/Downloads/ans.pem")
+      host = each.value.public_ip
+      port = 22
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      # !! installing packages !!
+       "sudo yum install -y wget",
+       "sudo hostnamectl set-hostname ${each.key}",
+       "wget https://github.com/prometheus/prometheus/releases/download/v3.10.0/prometheus-3.10.0.linux-amd64.tar.gz",
+       "tar -zxvf prometheus-3.10.0.linux-amd64.tar.gz",
+       "cd prometheus-3.10.0.linux-amd64 && ./prometheus &"
+   ]
+    
+  }
+}
