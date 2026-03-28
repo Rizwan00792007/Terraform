@@ -1,0 +1,9 @@
+plugin: aws_ec2
+regions:
+  - us-east-1 # Update this to match your Terraform region
+hostnames:
+  - ip-address # Fetches the public or private IP depending on your Jenkins/VPC setup
+keyed_groups:
+  # This will create Ansible groups like 'role_prometheus', 'role_docker', etc.
+  - key: tags.Role
+    prefix: role
